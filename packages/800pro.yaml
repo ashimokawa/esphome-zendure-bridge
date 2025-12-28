@@ -20,8 +20,6 @@ json:
 
 zendure:
 
-esp32_ble_tracker:
-
 globals:
   - id: "${id}_device_id"
     type: std::string
@@ -51,7 +49,6 @@ ble_client:
     id: "zendure_ble_${id}"
     on_connect:
       then:
-        - esp32_ble_tracker.stop_scan:
         - delay: 5s
         - wait_until:
             condition:
@@ -66,10 +63,6 @@ ble_client:
           vars:
             device_id: "${id}"
             time_id: "${time_id}"
-    on_disconnect:
-      then:
-        - esp32_ble_tracker.start_scan:
-            continuous: true
 
 text_sensor:
   - platform: ble_client
